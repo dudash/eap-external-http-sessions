@@ -111,6 +111,7 @@
                     <handler name="CONSOLE"/>
                 </handlers>
             </root-logger>
+            
             <formatter name="OPENSHIFT">
                 <custom-formatter module="org.jboss.logmanager.ext" class="org.jboss.logmanager.ext.formatters.LogstashFormatter">
                     <properties>
