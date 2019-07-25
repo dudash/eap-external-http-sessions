@@ -1,4 +1,7 @@
 # EAP External HTTP sessions
+
+COMING SOON!
+
 ## Extra credit - use with CodeReady Workspaces
 Let's use a web IDE called [CodeReady Workspaces][10] to change the app's code, build a new container, and deploy it.
 

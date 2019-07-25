@@ -109,7 +109,7 @@ Now if you want to try deleting pods or killing containers and seeing how the us
 ### 4 (Coming Soon) Extra credit - use with CodeReady Workspaces
 Let's use a web IDE called [CodeReady Workspaces][10] to change the app's code, build a new container, and deploy it.
 
-[CLICK HERE TO GET THE EXTRA CREDIT STEPS](./README.CodeRead.md)
+[CLICK HERE TO GET THE EXTRA CREDIT STEPS](./README.CodeReady.md)
 
 
 ## About the code / software architecture
