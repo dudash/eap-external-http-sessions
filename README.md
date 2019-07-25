@@ -37,6 +37,8 @@ Run the following command to create a bunch of OpenShift resources that will clo
 ```
 oc new-app --template=eap72-basic-s2i \
   -p SOURCE_REPOSITORY_URL=https://github.com/dudash/eap-external-http-sessions \
+  -p SOURCE_REPOSITORY_REF=master \
+  -p CONTEXT_DIR= \
   -e JGROUPS_PING_PROTOCOL=openshift.DNS_PING \
   -e OPENSHIFT_DNS_PING_SERVICE_NAME=eap-app-ping \
   -e OPENSHIFT_DNS_PING_SERVICE_PORT=8888 \
