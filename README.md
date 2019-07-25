@@ -18,7 +18,7 @@ You will need an OpenShift cluster to run this demo. If you don't have a cluster
 Everything will reside in the same project. So let's create that first:
 ```oc new-project eap-dg-demo```
 
-### Install data grid
+### 1 - Install data grid
 Run the following commands to setup Data Grid (uses templates, in the future there will be an Operator to do the install)
 
 ```
@@ -44,7 +44,7 @@ Also, expose a REST route - just for some demo/testing:
 
 :information_source: Data Grid is part of the OpenShift Runtimes bundle. If you own Runtimes but don't see Data Grid templates in your OpenShift cluster [you need to follow steps here][12]
 
-### Build & deploy the app in EAP on OpenShift
+### 2 - Build & deploy the app in EAP on OpenShift
 <!-- If we switch to TLS Hotrod protocol
 First we need to pull the TLS certs from Data Grid to allow our app communicate securely with the cache. Do the following:
 ```
@@ -69,7 +69,7 @@ oc new-app --template=eap71-basic-s2i \
 Now scale the webapp to 2 replicas:
 ```oc scale --replicas=2 dc eap-app```
 
-### Demo steps
+### 3 - Demo steps
 If everything above worked without errors, you are good to test a few things out. 
 
 Let's check we can put/get data into the cache. Put something in with:
@@ -106,17 +106,10 @@ It'll look like this:
 Now if you want to try deleting pods or killing containers and seeing how the user session stays around, go for it.
 
 
-### (Coming Soon) Extra credit - use with CodeReady Workspaces
+### 4 (Coming Soon) Extra credit - use with CodeReady Workspaces
 Let's use a web IDE called [CodeReady Workspaces][10] to change the app's code, build a new container, and deploy it.
 
-* TBD - fork the app
-* TBD - launch Che
-* TBD - import your git repo
-* TBD - change code
-* TBD - build local (`mvn clean package`)
-* TBD - deploy to cluster
-
-:information_source: Another way that you might set this up in your environment is git commits trigger a pipeline execution
+[CLICK HERE TO GET THE EXTRA CREDIT STEPS](./README.CodeRead.md)
 
 
 ## About the code / software architecture
@@ -136,7 +129,7 @@ The parts in action here are:
 
 ## Now What? Next Steps
 Get deeper and try other examples of using Data Grid, click the link for this repo with for more content:
-* [https://github.com/jboss-developer/jboss-jdg-quickstarts](https://github.com/jboss-developer/jboss-jdg-quickstarts)
+* [RHDG Quickstarts](https://github.com/jboss-developer/jboss-jdg-quickstarts)
 
 
 [1]: https://launchschool.com/books/http/read/statefulness
