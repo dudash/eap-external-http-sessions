@@ -26,8 +26,7 @@ oc new-app cache-service \
   -p APPLICATION_USER=developer \
   -p APPLICATION_PASSWORD=password \
   -p NUMBER_OF_INSTANCES=3 \
-  -p REPLICATION_FACTOR=2 \
-  -e AB_PROMETHEUS_ENABLE=true
+  -p REPLICATION_FACTOR=2
 ```
 
 :information_source: Data Grid is part of the OpenShift Runtimes bundle. If you own Runtimes but don't see Data Grid templates in your OpenShift cluster [you need to follow steps here][12]
@@ -35,7 +34,7 @@ oc new-app cache-service \
 ### Build & deploy the app in EAP on OpenShift
 Run the following command to create a bunch of OpenShift resources that will clone, build the code, build a container, deploy, and run our webapp:
 ```
-oc new-app --template=eap72-basic-s2i \
+oc new-app --template=eap71-basic-s2i \
   -p SOURCE_REPOSITORY_URL=https://github.com/dudash/eap-external-http-sessions \
   -p SOURCE_REPOSITORY_REF=master \
   -p CONTEXT_DIR= \
@@ -43,6 +42,7 @@ oc new-app --template=eap72-basic-s2i \
   -e OPENSHIFT_DNS_PING_SERVICE_NAME=eap-app-ping \
   -e OPENSHIFT_DNS_PING_SERVICE_PORT=8888 \
   -e CACHE_NAME=default
+  -e CACHE_SERVICE_SERVICE_HOST=cache-service.eap-dg.svc.cluster.local
 ```
 
 Now scale the webapp to 2 replicas:
@@ -66,7 +66,7 @@ TBD - change code
 TBD - build local (`mvn clean package`)
 TBD - deploy to cluster
 
-:information_source: another way that you might set this up, in your environment, would be to have git commits trigger pipeline-based code build & deploy
+:information_source: Another way that you might set this up, in your environment, would be to have git commits trigger pipeline-based code build & deploy
 
 ## About the code / software architecture
 The parts in action here are:

@@ -111,7 +111,6 @@
                     <handler name="CONSOLE"/>
                 </handlers>
             </root-logger>
-            
             <formatter name="OPENSHIFT">
                 <custom-formatter module="org.jboss.logmanager.ext" class="org.jboss.logmanager.ext.formatters.LogstashFormatter">
                     <properties>
@@ -231,13 +230,10 @@
                 <replicated-cache name="repl" mode="ASYNC">
                     <locking isolation="REPEATABLE_READ"/>
                     <transaction mode="BATCH"/>
+                    <!-- See this -->
                     <remote-store remote-servers="remote-jdg-server"
                         cache="${env.CACHE_NAME}" socket-timeout="60000"
                         preload="true" passivation="false" purge="false" shared="true"/>
-                    <!-- This configurations could be used if JDG is outside of Openshift
-                    <remote-store remote-servers="remote-jdg-server1 remote-jdg-server2"
-                        cache="http-session-cache" socket-timeout="60000"
-                        preload="true" passivation="false" purge="false" shared="true"/>-->
                 </replicated-cache>
                 <distributed-cache name="dist" mode="ASYNC" l1-lifespan="0" owners="2">
                     <locking isolation="REPEATABLE_READ"/>
@@ -622,15 +618,9 @@
         <outbound-socket-binding name="mail-smtp">
             <remote-destination host="localhost" port="25"/>
         </outbound-socket-binding>
+        <!-- See this -->
         <outbound-socket-binding name="remote-jdg-server">
-            <remote-destination host="${env.DATAGRID_APP_HOTROD_SERVICE_HOST:127.0.0.1}" port="${env.DATAGRID_APP_HOTROD_SERVICE_PORT:11222}"/>
+            <remote-destination host="${env.CACHE_SERVICE_SERVICE_HOST:127.0.0.1}" port="${env.CACHE_SERVICE_SERVICE_PORT_HOTROD:11222}"/>
         </outbound-socket-binding> 
-        <!-- This configuration could be used if the JDG server is outside of Openshift 
-        <outbound-socket-binding name="remote-jdg-server1">
-            <remote-destination host="${env.JDG_SERVER1_HOST}" port="${env.JDG_SERVER1_PORT}"/>
-        </outbound-socket-binding>
-        <outbound-socket-binding name="remote-jdg-server2">
-            <remote-destination host="${env.JDG_SERVER2_HOST}" port="${env.JDG_SERVER2_PORT}"/>
-        </outbound-socket-binding> -->
     </socket-binding-group>
 </server>
