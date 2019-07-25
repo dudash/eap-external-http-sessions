@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<jboss-web version="6.0"
+           xmlns="http://www.jboss.com/xml/ns/javaee"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-web_6_0.xsd">
+    <replication-config>
+        <cache-name>jboss.infinispan.web.repl</cache-name>
+        <replication-trigger>SET_AND_GET</replication-trigger>   
+        <replication-granularity>SESSION</replication-granularity>
+    </replication-config>
+    
+    <passivation-config>
+        <use-session-passivation>true</use-session-passivation>
+        <passivation-min-idle-time>1</passivation-min-idle-time>
+        <passivation-max-idle-time>2</passivation-max-idle-time>
+    </passivation-config>
+    
+</jboss-web>

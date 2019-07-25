@@ -21,3 +21,16 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# OS generated files #
+######################
+.DS_Store
+*/target/*
+target/http-session-counter.war
+target/classes/org/redhat/httpsession/Counter.class
+target/http-session-counter/index.jsp
+target/http-session-counter/WEB-INF/jboss-web.xml
+target/http-session-counter/WEB-INF/web.xml
+target/http-session-counter/WEB-INF/classes/org/redhat/httpsession/Counter.class
+target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
