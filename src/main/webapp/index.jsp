@@ -40,7 +40,7 @@
 						The request arrived at : <%= System.getProperty("jboss.host.name") %>
 					</div>
 
-					<p class="lead">This data is being pulled from a Data Grid. By having the data layer reside external to JBoss EAP, different JBoss EAP instances can access the data.</p>
+					<p class="lead">This data is being pulled from a Data Grid. By having the data layer reside external to JBoss EAP, multiple instances can access the data.</p>
 					<p class="lead">This independence is an architectural design that protects your session data in the case of server containers crashing or recreating/patching an application server.</p>
 					<p class="lead">
 					<a href="https://www.redhat.com/en/technologies/jboss-middleware/data-grid" class="btn btn-lg btn-secondary">Learn more</a>
@@ -49,8 +49,9 @@
 		
 				<div class="mastfoot">
 					<div class="inner">
-					<!-- Place this tag where you want the button to render. -->
-					<p>Open source on github, <a class="github-button" href="https://github.com/dudash/eap-external-http-sessions" data-icon="octicon-star" data-size="large" aria-label="Star dudash/eap-external-http-sessions on GitHub">Star</a></p>
+						<!-- Place this tag where you want the button to render. -->
+						<p>Find the source on github</p>
+						<p><a class="github-button" href="https://github.com/dudash/eap-external-http-sessions" data-icon="octicon-star" data-size="large" aria-label="Star dudash/eap-external-http-sessions on GitHub">Star</a></p>
 					</div>
 				</div>
 			</div>
