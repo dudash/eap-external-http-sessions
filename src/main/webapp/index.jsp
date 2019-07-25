@@ -33,10 +33,15 @@
 				<div class="inner cover">
 					<h1 class="cover-heading">This is your session data</h1>
 					
-					<p>Counter is set at : <jsp:getProperty property="incrementedValue" name="counter" /></p>
-					<p>The request arrived at node : <%= System.getProperty("jboss.host.name") %></p>
+					<div class="alert alert-primary" role="alert">
+						Counter is set at : <jsp:getProperty property="incrementedValue" name="counter" />
+					</div>
+					<div class="alert alert-info" role="alert">
+						The request arrived at node : <%= System.getProperty("jboss.host.name") %>
+					</div>
 
-					<p class="lead">This data is being pulled from a Data Grid. By having the data layer reside external to JBoss EAP, different JBoss EAP instances can access shared data. So this independence is a nice architectural design that protects your session data in the case of server containers crashing or recreating/patching an application server. It also has the advantage of keeping individual JBoss EAP instances lighter and free of heap usage</p>
+					<p class="lead">This data is being pulled from a Data Grid. By having the data layer reside external to JBoss EAP, different JBoss EAP instances can access shared data.</p>
+					<p class="lead">This independence is a nice architectural design that protects your session data in the case of server containers crashing or recreating/patching an application server. It also has the advantage of keeping individual JBoss EAP instances lighter and free of heap usage.</p>
 					<p class="lead">
 					<a href="https://www.redhat.com/en/technologies/jboss-middleware/data-grid" class="btn btn-lg btn-secondary">Learn more</a>
 					</p>
@@ -44,7 +49,8 @@
 		
 				<div class="mastfoot">
 					<div class="inner">
-					<p>opensource on <a href="https://github.com/dudash/eap-external-http-sessions">github here</a></p>
+					<!-- Place this tag where you want the button to render. -->
+					<p>Open source on github, <a class="github-button" href="https://github.com/dudash/eap-external-http-sessions" data-icon="octicon-star" data-size="large" aria-label="Star dudash/eap-external-http-sessions on GitHub">Star</a></p>
 					</div>
 				</div>
 			</div>
