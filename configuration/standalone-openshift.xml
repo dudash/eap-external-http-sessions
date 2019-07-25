@@ -102,6 +102,9 @@
             <logger category="org.jboss.as.config">
                 <level name="DEBUG"/>
             </logger>
+            <logger category="org.jboss.modules">
+                <level name="TRACE"/>
+            </logger>
             <logger category="sun.rmi">
                 <level name="WARN"/>
             </logger>
@@ -225,12 +228,12 @@
                     <transaction mode="BATCH"/>
                 </replicated-cache>
             </cache-container>
+            <!-- See this -->
             <cache-container name="web" default-cache="repl" module="org.wildfly.clustering.web.infinispan">
                 <transport lock-timeout="60000"/>
                 <replicated-cache name="repl" mode="ASYNC">
                     <locking isolation="REPEATABLE_READ"/>
                     <transaction mode="BATCH"/>
-                    <!-- See this -->
                     <remote-store remote-servers="remote-jdg-server"
                         cache="${env.CACHE_NAME}" socket-timeout="60000"
                         preload="true" passivation="false" purge="false" shared="true"/>

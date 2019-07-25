@@ -42,7 +42,6 @@ oc new-app --template=eap71-basic-s2i \
   -e OPENSHIFT_DNS_PING_SERVICE_NAME=eap-app-ping \
   -e OPENSHIFT_DNS_PING_SERVICE_PORT=8888 \
   -e CACHE_NAME=default
-  -e CACHE_SERVICE_SERVICE_HOST=cache-service.eap-dg.svc.cluster.local
 ```
 
 Now scale the webapp to 2 replicas:
