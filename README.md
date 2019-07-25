@@ -4,7 +4,7 @@
 Example of externalizing HTTP sessions from [JBoss EAP][11] (aka Wildfly) into a clustered [Data Grid][7] - on OpenShift
 
 ## Why sessions?
-Basically, because you need a place to store data specific to a user using your webapp. It's likely you either know or have heard folks says "[HTTP is stateless][1]". But users interacting with your webapp expect an experience where the app remembers things about them and what they're doing (a typical example of this is a shopping cart). Stateless HTTP and keeping info about the user are diametrically opposed. And so sessions are used a way to keep user state.
+Basically, because you need a place to store data specific to a user using your webapp. It's likely you either know or have heard folks says "[HTTP is stateless][1]". But users interacting with your webapp expect an experience where the app remembers things about them and what they're doing (a typical example of this is a shopping cart). Stateless HTTP and keeping info about the user are opposing things. And so sessions are used a way to keep user state.
 
 ## Why external?
 This allows scaling of the sessions independent of the application. And by having the data layer reside external to JBoss EAP, different JBoss EAP instances can  access shared data. So this independence is a nice architectural design that protects your session data in the case of server containers crashing or recreating/patching an application server. It also has the advantage of keeping individual JBoss EAP instances lighter and free of heap usage.
