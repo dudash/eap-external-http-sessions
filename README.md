@@ -7,7 +7,7 @@ Example of externalizing HTTP sessions from [JBoss EAP][11] (aka Wildfly) into a
 Basically, because you need a place to store data specific to a user using your webapp. It's likely you either know or have heard folks says "[HTTP is stateless][1]". But users interacting with your webapp expect an experience where the app remembers things about them and what they're doing (a typical example of this is a shopping cart). Stateless HTTP and keeping info about the user are opposing things. And so sessions are used a way to keep user state.
 
 ## Why external?
-This allows scaling of the sessions independent of the application. And by having the data layer reside external to JBoss EAP, different JBoss EAP instances can  access shared data. So this independence is a nice architectural design that protects your session data in the case of server containers crashing or recreating/patching an application server. It also has the advantage of keeping individual JBoss EAP instances lighter and free of heap usage.
+This allows scaling of the sessions independent of the application. And by having the data layer reside external to JBoss EAP, different JBoss EAP instances can access shared data. So this independence is a nice architectural design that protects your session data in the case of server containers crashing or recreating/patching an application server. It also has the advantage of keeping individual JBoss EAP instances lighter and free of heap usage.
 
 ## What is Data Grid?
 Data Grid is is an extremely scalable, highly available key/value data store. We are using it here to externalize the user sessions. It is often used as a distributed cache, but also can serve as a NoSQL key/value store or object database. You can learn more [about Data Grid here][7].
@@ -19,22 +19,28 @@ Everything will reside in the same project. So let's create that first:
 ```oc new-project eap-dg-demo```
 
 ### Install data grid
-Run the following command to setup Data Grid (uses templates, in the future there will be an Operator to do the install)
+Run the following commands to setup Data Grid (uses templates, in the future there will be an Operator to do the install)
 
 ```
-oc new-app --template=datagrid73-basic -p CACHE_NAMES=default -p MEMCACHED_CACHE=memcached -p APPLICATION_NAME=cache-service
+oc new-app --template=datagrid73-basic \
+  -p CACHE_NAMES=default,testing \
+  -p MEMCACHED_CACHE=memcached \
+  -p APPLICATION_NAME=cache-service
+
+oc scale --replicas=3 dc cache-service
 ```
 
-<!-- new templates ```
+<!-- new templates use TLS ```
 oc new-app cache-service \
   -p APPLICATION_USER=developer \
   -p APPLICATION_PASSWORD=password \
   -p NUMBER_OF_INSTANCES=3 \
   -p REPLICATION_FACTOR=2
-``` -->
+```
 
-Now expose the REST route for some demo/testing with:
+Also, expose a REST route - just for some demo/testing:
 ```oc create route reencrypt cache-rest --port=https --service=cache-service```
+-->
 
 :information_source: Data Grid is part of the OpenShift Runtimes bundle. If you own Runtimes but don't see Data Grid templates in your OpenShift cluster [you need to follow steps here][12]
 
@@ -71,29 +77,35 @@ Let's check we can put/get data into the cache. Put something in with:
 curl -X PUT -u developer:password \
   -H 'Content-type: text/plain' \
   -d 'world' \
-  https://{YOUR-CACHE-ROUTE}/rest/default/hello
+  https://{YOUR-CACHE-ROUTE}/rest/testing/hello
 ```
 
 Pull that back out with:
 ```
 curl -i -u developer:password \
   -H 'Content-type: text/plain' \
-  https://{YOUR-CACHE-ROUTE}/rest/default/hello
+  https://{YOUR-CACHE-ROUTE}/rest/testing/hello
 ```
 
 ...
 
 Now, let's check the JMX console and make sure EAP is clustered and using Data Grid:
-```
-TBD
-```
+
+In the OpenShift console, click Applications->Pods, and choose one of the Data Grid pods (it'll look like `cache-service-1-hz8fp`). On the right side in the Containers section you should have a link for "Open Java Console". Click to open that up.
+
+If you expand the clustering details you should see a cluster size of 3 just like the screenshot below:
+![clustered](.screens/clustered-rhdg.png)
 
 And let's access the webapp and see that our session data is being maintained.
-```
-TBD
-```
 
-### Extra credit - use CodeReady Workspaces to change the app's code, build a new container, and deploy it
+In the OpenShift console, find the route for your webapp and click it. Add `/http-session-counter/` to the end of it. Now refresh the page a few times. You'll see the counter incrementing for this session and it will sometime be served by different EAP container instances. Woot the session is external. 
+
+Now if you want to try deleting pods or killing containers and seeing how the user session stays around, go for it.
+
+
+### (Coming Soon) Extra credit - use with CodeReady Workspaces
+Let's use a web IDE called CodeReady Workspaces to change the app's code, build a new container, and deploy it.
+
 TBD - fork the app
 TBD - launch Che
 TBD - import your git repo
@@ -101,7 +113,7 @@ TBD - change code
 TBD - build local (`mvn clean package`)
 TBD - deploy to cluster
 
-:information_source: Another way that you might set this up, in your environment, would be to have git commits trigger pipeline-based code build & deploy
+:information_source: Another way that you might set this up in your environment is git commits trigger a pipeline execution
 
 
 ## About the code / software architecture
