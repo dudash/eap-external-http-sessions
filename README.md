@@ -98,7 +98,7 @@ If you expand the clustering details you should see a cluster size of 3 just lik
 
 And let's access the webapp and see that our session data is being maintained.
 
-In the OpenShift console, find the route for your webapp and click it. Add `/http-session-counter/` to the end of it. Now refresh the page a few times. You'll see the counter incrementing for this session and it will sometime be served by different EAP container instances. Woot the session is external. 
+In the OpenShift console, find the route for your webapp and click it. Add `/http-session-counter/` to the end of it. Now refresh the page a few times. You'll see the counter incrementing for this session and it will sometimes be served by different EAP container instances. Woot woot! the session is external. 
 
 It'll look like this:
 ![webapp](.screens/webapp.png)
@@ -107,7 +107,7 @@ Now if you want to try deleting pods or killing containers and seeing how the us
 
 
 ### (Coming Soon) Extra credit - use with CodeReady Workspaces
-Let's use a web IDE called CodeReady Workspaces to change the app's code, build a new container, and deploy it.
+Let's use a web IDE called [CodeReady Workspaces][10] to change the app's code, build a new container, and deploy it.
 
 * TBD - fork the app
 * TBD - launch Che
@@ -134,8 +134,8 @@ The parts in action here are:
     * Router for getting HTTP traffic to our load balanced application
 
 
-## More Info / References
-If you want to get deeper and try other examples of using Data Grid, check out this repo with for more content:
+## Now What? Next Steps
+Get deeper and try other examples of using Data Grid, click the link for this repo with for more content:
 * [https://github.com/jboss-developer/jboss-jdg-quickstarts](https://github.com/jboss-developer/jboss-jdg-quickstarts)
 
 
