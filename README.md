@@ -101,7 +101,7 @@ And let's access the webapp and see that our session data is being maintained.
 In the OpenShift console, find the route for your webapp and click it. Add `/http-session-counter/` to the end of it. Now refresh the page a few times. You'll see the counter incrementing for this session and it will sometime be served by different EAP container instances. Woot the session is external. 
 
 It'll look like this:
-![clustered](.screens/webapp.png)
+![webapp](.screens/webapp.png)
 
 Now if you want to try deleting pods or killing containers and seeing how the user session stays around, go for it.
 
