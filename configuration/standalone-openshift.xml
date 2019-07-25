@@ -103,7 +103,7 @@
                 <level name="DEBUG"/>
             </logger>
             <logger category="org.jboss.modules">
-                <level name="TRACE"/>
+                <level name="DEBUG"/>
             </logger>
             <logger category="sun.rmi">
                 <level name="WARN"/>
