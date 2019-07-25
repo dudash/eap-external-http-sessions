@@ -22,16 +22,32 @@ Everything will reside in the same project. So let's create that first:
 Run the following command to setup Data Grid (uses templates, in the future there will be an Operator to do the install)
 
 ```
+oc new-app --template=datagrid73-basic -p CACHE_NAMES=default -p MEMCACHED_CACHE=memcached -p APPLICATION_NAME=cache-service
+```
+
+<!-- new templates ```
 oc new-app cache-service \
   -p APPLICATION_USER=developer \
   -p APPLICATION_PASSWORD=password \
   -p NUMBER_OF_INSTANCES=3 \
   -p REPLICATION_FACTOR=2
-```
+``` -->
+
+Now expose the REST route for some demo/testing with:
+```oc create route reencrypt cache-rest --port=https --service=cache-service```
 
 :information_source: Data Grid is part of the OpenShift Runtimes bundle. If you own Runtimes but don't see Data Grid templates in your OpenShift cluster [you need to follow steps here][12]
 
 ### Build & deploy the app in EAP on OpenShift
+<!-- If we switch to TLS Hotrod protocol
+First we need to pull the TLS certs from Data Grid to allow our app communicate securely with the cache. Do the following:
+```
+cd /tmp
+oc get secret service-certs -o jsonpath='{.data.tls\.crt}' | base64 -D > tls.crt
+```
+*** TBD - get the certs into EAP via configmap?
+-->
+
 Run the following command to create a bunch of OpenShift resources that will clone, build the code, build a container, deploy, and run our webapp:
 ```
 oc new-app --template=eap71-basic-s2i \
@@ -50,12 +66,32 @@ Now scale the webapp to 2 replicas:
 ### Demo steps
 If everything above worked without errors, you are good to test a few things out. 
 
-Let's check the JMX console and make sure EAP is clustered and using Data Grid:
-TBD
+Let's check we can put/get data into the cache. Put something in with:
+```
+curl -X PUT -u developer:password \
+  -H 'Content-type: text/plain' \
+  -d 'world' \
+  https://{YOUR-CACHE-ROUTE}/rest/default/hello
+```
 
-Let's access the webapp and see that our session data is being maintained.
-TBD
+Pull that back out with:
+```
+curl -i -u developer:password \
+  -H 'Content-type: text/plain' \
+  https://{YOUR-CACHE-ROUTE}/rest/default/hello
+```
 
+...
+
+Now, let's check the JMX console and make sure EAP is clustered and using Data Grid:
+```
+TBD
+```
+
+And let's access the webapp and see that our session data is being maintained.
+```
+TBD
+```
 
 ### Extra credit - use CodeReady Workspaces to change the app's code, build a new container, and deploy it
 TBD - fork the app
@@ -66,6 +102,7 @@ TBD - build local (`mvn clean package`)
 TBD - deploy to cluster
 
 :information_source: Another way that you might set this up, in your environment, would be to have git commits trigger pipeline-based code build & deploy
+
 
 ## About the code / software architecture
 The parts in action here are:
@@ -80,6 +117,7 @@ The parts in action here are:
     * Load balancing, deployment replication for scaled EAP servers
     * Load balancing, [stateful mgmt][14] for scaled Data Grid cluster
     * Router for getting HTTP traffic to our load balanced application
+
 
 ## More Info / References
 If you want to get deeper and try other examples of using Data Grid, check out this repo with for more content:
@@ -100,6 +138,7 @@ If you want to get deeper and try other examples of using Data Grid, check out t
 [12]: https://access.redhat.com/documentation/en-us/red_hat_data_grid/7.3/html/red_hat_data_grid_for_openshift/os_services#confirming_service_availability
 [13]: https://github.com/jboss-developer/jboss-jdg-quickstarts
 [14]: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/
+[15]: https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/development_guide/index#session_replication
 
 [openshift-heximage]: https://img.shields.io/badge/openshift-3.11-BB261A.svg
 [openshift-url]: https://docs.openshift.com/container-platform/3.11/welcome/index.html

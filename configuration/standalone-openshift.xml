@@ -623,7 +623,8 @@
         </outbound-socket-binding>
         <!-- See this -->
         <outbound-socket-binding name="remote-jdg-server">
-            <remote-destination host="${env.CACHE_SERVICE_SERVICE_HOST:127.0.0.1}" port="${env.CACHE_SERVICE_SERVICE_PORT_HOTROD:11222}"/>
+            <!--<remote-destination host="${env.CACHE_SERVICE_SERVICE_HOST:127.0.0.1}" port="${env.CACHE_SERVICE_SERVICE_PORT_HOTROD:11222}"/>-->
+            <remote-destination host="${env.CACHE_SERVICE_HOTROD_SERVICE_HOST:127.0.0.1}" port="${env.CACHE_SERVICE_HOTROD_SERVICE_PORT:11333}"/>
         </outbound-socket-binding> 
     </socket-binding-group>
 </server>
