@@ -10,7 +10,7 @@ Basically, because you need a place to store data specific to a user using your 
 This allows scaling of the sessions independent of the application. And by having the data layer reside external to JBoss EAP, different JBoss EAP instances can access shared data. So this independence is a nice architectural design that protects your session data in the case of server containers crashing or recreating/patching an application server. It also has the advantage of keeping individual JBoss EAP instances lighter and free of heap usage.
 
 ## What is Data Grid?
-Data Grid is is an extremely scalable, highly available key/value data store. We are using it here to externalize the user sessions. It is often used as a distributed cache, but also can serve as a NoSQL key/value store or object database. You can learn more [about Data Grid here][7].
+Data Grid is really what we are showcasing here. It's an extremely scalable, highly available key/value data store. We are using it in this case to externalize the EAP user sessions. It is often used as a distributed cache, but also can serve as a NoSQL key/value store or object database. It can be used in several different ways to accelerate development and to improve performance of both legacy and modern applications. You can learn more [about Data Grid here][7].
 
 ## Setup & demo steps
 You will need an OpenShift cluster to run this demo. If you don't have a cluster, [try using the CDK][8] for 3.x versions of OpenShift. And soon [CodeReady Containers][9] will be available for 4.x versions of OpenShift.
@@ -42,7 +42,7 @@ Also, expose a REST route - just for some demo/testing:
 ```oc create route reencrypt cache-rest --port=https --service=cache-service```
 -->
 
-:information_source: Data Grid is part of the OpenShift Runtimes bundle. If you own Runtimes but don't see Data Grid templates in your OpenShift cluster [you need to follow steps here][12]
+:information_source: Data Grid is part of the OpenShift Runtimes bundle. If you own Runtimes but don't see Data Grid templates in your OpenShift cluster [you need to follow steps here][16] (additional [service templates steps here][12]).
 
 ### 2 - Build & deploy the app in EAP on OpenShift
 <!-- If we switch to TLS Hotrod protocol
@@ -77,14 +77,14 @@ Let's check we can put/get data into the cache. Put something in with:
 curl -X PUT -u developer:password \
   -H 'Content-type: text/plain' \
   -d 'world' \
-  https://{YOUR-CACHE-ROUTE}/rest/testing/hello
+  http://{YOUR-CACHE-ROUTE}/rest/testing/hello
 ```
 
 Pull that back out with:
 ```
 curl -i -u developer:password \
   -H 'Content-type: text/plain' \
-  https://{YOUR-CACHE-ROUTE}/rest/testing/hello
+  http://{YOUR-CACHE-ROUTE}/rest/testing/hello
 ```
 
 ...
@@ -147,6 +147,7 @@ Get deeper and try other examples of using Data Grid, click the link for this re
 [13]: https://github.com/jboss-developer/jboss-jdg-quickstarts
 [14]: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/
 [15]: https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/development_guide/index#session_replication
+[16]: https://access.redhat.com/documentation/en-us/red_hat_data_grid/7.3/html/red_hat_data_grid_for_openshift/os_templates#os_templates_rhdg_import
 
 [openshift-heximage]: https://img.shields.io/badge/openshift-3.11-BB261A.svg
 [openshift-url]: https://docs.openshift.com/container-platform/3.11/welcome/index.html
