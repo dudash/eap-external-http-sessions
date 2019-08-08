@@ -24,7 +24,6 @@ Run the following commands to setup Data Grid (uses templates, in the future the
 ```
 oc new-app --template=datagrid73-basic \
   -p CACHE_NAMES=default,testing \
-  -p MEMCACHED_CACHE=memcached \
   -p APPLICATION_NAME=cache-service
 
 oc scale --replicas=3 dc cache-service
