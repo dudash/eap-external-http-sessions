@@ -116,7 +116,7 @@ Let's use a web IDE called [CodeReady Workspaces][10] to change the app's code, 
 The parts in action here are:
 * Demo JSP webapp (thanks to `mvocale` because I based this off [his example][2])
 * Middleware components for:
-    * [JBoss EAP][11] (aka Wildfly) as our J2EE app server
+    * [JBoss EAP][11] (aka Wildfly) as our JEE 7/8 app server
     * [Red Hat Data Grid][7] for user sessions
     * [CodeReady Workspaces][10] (aka Eclipse Che) for web-based coding
 * OpenShift/Kubernetes for:
